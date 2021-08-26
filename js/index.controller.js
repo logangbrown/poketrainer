@@ -46,6 +46,9 @@ angular.module('poketrainer').controller('IndexCtrl', function ($scope, $http, $
         .then(function (response) {
             $scope.pokemon.totalPokemon = response.data.count;
             $scope.getRandomPokemon();
+        })
+        .catch(function (error) {
+            toastr["error"](error);
         });
 
     $scope.numGuesses = 0;
@@ -59,6 +62,9 @@ angular.module('poketrainer').controller('IndexCtrl', function ($scope, $http, $
                 $scope.numGuesses = 0;
                 $scope.typesGuessed = [];
                 $scope.currentPokemon = response.data;
+            })
+            .catch(function (error) {
+                toastr["error"](error);
             });
     };
 
