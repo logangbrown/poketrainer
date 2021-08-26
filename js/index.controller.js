@@ -55,8 +55,9 @@ angular.module('poketrainer').controller('IndexCtrl', function ($scope, $http, $
 
     $scope.pokedex.getPokemonsList()
         .then(function (response) {
-            $scope.pokemonList = response.data;
+            $scope.pokemonList = response.results;
             $scope.totalPokemon = $scope.pokemonList.length;
+            $scope.getRandomPokemon();
         });
 
     $scope.numGuesses = 0;
@@ -65,12 +66,13 @@ angular.module('poketrainer').controller('IndexCtrl', function ($scope, $http, $
     $scope.getRandomPokemon = function () {
         let id = Math.floor(Math.random() * $scope.pokemon.totalPokemon);
 
-        $scope.numGuesses = 0;
-        $scope.typesGuessed = [];
-        $scope.currentPokemon = $scope.pokemonList[id];
+        $scope.pokedex.getPokemonByName($scope.pokemonList[id].name)
+            .then(function (response) {
+                $scope.numGuesses = 0;
+                $scope.typesGuessed = [];
+                $scope.currentPokemon = response.results;
+            })
     };
-
-    $scope.getRandomPokemon();
 
     $scope.guessType = function (type) {
         if ($scope.typesGuessed.includes(type)) {
