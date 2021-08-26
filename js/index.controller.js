@@ -82,7 +82,7 @@ angular.module('poketrainer').controller('IndexCtrl', function ($scope, $http, $
         }
         let types = ''
         for (let i = 0; i < $scope.pokemon.currentPokemon.types.length; i++) {
-            types += ' ' + $scope.pokemon.currentPokemon.types[i].type.name;
+            types += ' ' + $scope.pokemon.types[$scope.pokemon.currentPokemon.types[i].type.name].name;
             if ($scope.pokemon.currentPokemon.types[i].type.name === type) {
                 $scope.numGuesses++;
                 toastr["success"]("Correct!");
