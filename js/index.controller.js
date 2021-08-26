@@ -44,15 +44,6 @@ angular.module('poketrainer').controller('IndexCtrl', function ($scope, $http, $
         'fairy': {'index': 'fairy', 'name': 'Fairy'}
     }
 
-    // $http.get("https://pokeapi.co/api/v2/pokemon")
-    //     .then(function (response) {
-    //         $scope.pokemon.totalPokemon = response.data.count;
-    //         $scope.getRandomPokemon();
-    //     })
-    //     .catch(function (error) {
-    //         toastr["error"](error);
-    //     });
-
     $scope.pokedex.getPokemonsList()
         .then(function (response) {
             $scope.pokemonList = response.results;
@@ -100,5 +91,13 @@ angular.module('poketrainer').controller('IndexCtrl', function ($scope, $http, $
         toastr["error"]("Wrong!" + types);
         $scope.pokemon.totalGuesses++;
         $scope.getRandomPokemon();
+    };
+
+    $scope.getSprite = function () {
+        if ($scope.pokemon.currentPokemon.sprites.other['official-artwork'].front_default) {
+            return $scope.pokemon.currentPokemon.sprites.other['official-artwork'].front_default;
+        } else {
+            return $scope.pokemon.currentPokemon.sprites.front_default;
+        }
     };
 });

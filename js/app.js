@@ -7,3 +7,8 @@ angular.module('poketrainer').config(function($routeProvider) {
             controller: "IndexCtrl"
         })
 });
+
+
+//TODO Settings like preferred sprite type, generation, etc
+//TODO Better visibility on chosen types
+//TODO Alternate modes: Guess pokemon name, weaknesses, strengths
