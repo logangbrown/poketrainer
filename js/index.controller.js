@@ -46,24 +46,41 @@ angular.module('poketrainer').controller('IndexCtrl', function ($scope, $http, $
             $scope.getRandomPokemon();
         });
 
+    $scope.numGuesses = 0;
+    $scope.typesGuessed = [];
+
     $scope.getRandomPokemon = function () {
         let id = 1 + Math.floor(Math.random() * $scope.pokemon.totalPokemon);
 
         $http.get("https://pokeapi.co/api/v2/pokemon/" + id)
             .then(function (response) {
+                $scope.numGuesses = 0;
+                $scope.typesGuessed = [];
                 $scope.currentPokemon = response.data;
             });
     };
 
     $scope.guessType = function (type) {
-        for (let i = 0; i < $scope.currentPokemon.types.count; i++) {
+        if ($scope.typesGuessed.includes(type)) {
+            toastr["error"]("Already guessed " + type + "! Try again.");
+            return;
+        }
+        let types = ''
+        for (let i = 0; i < $scope.currentPokemon.types.length; i++) {
+            types += $scope.currentPokemon.types[i].type.name;
             if ($scope.currentPokemon.types[i].type.name === type) {
+                $scope.numGuesses++;
                 toastr["success"]("Correct!");
-                $scope.getRandomPokemon();
-                return;
+                if ($scope.numGuesses === $scope.currentPokemon.types.length) {
+                    $scope.getRandomPokemon();
+                    return;
+                }
+                else {
+                    $scope.typesGuessed.push(type);
+                }
             }
         }
-        toastr["error"]("Wrong!");
+        toastr["error"]("Wrong!" + types);
         $scope.getRandomPokemon();
     };
 });
