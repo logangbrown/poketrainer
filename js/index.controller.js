@@ -18,6 +18,7 @@ angular.module('poketrainer').controller('IndexCtrl', function ($scope, $http, $
     };
 
     $scope.pokedex = new Pokedex.Pokedex();
+    $scope.pokemonList = {};
     $scope.pokemon = {};
     $scope.pokemon.totalGuesses = 0;
     $scope.pokemon.totalCorrect = 0;
@@ -51,25 +52,25 @@ angular.module('poketrainer').controller('IndexCtrl', function ($scope, $http, $
     //     .catch(function (error) {
     //         toastr["error"](error);
     //     });
-    $scope.pokemon.totalPokemon = 800;
-    $scope.getRandomPokemon();
+
+    $scope.pokedex.getPokemonsList()
+        .then(function (response) {
+            $scope.pokemonList = response.data;
+            $scope.totalPokemon = $scope.pokemonList.length;
+        });
 
     $scope.numGuesses = 0;
     $scope.typesGuessed = [];
 
     $scope.getRandomPokemon = function () {
-        let id = 1 + Math.floor(Math.random() * $scope.pokemon.totalPokemon);
+        let id = Math.floor(Math.random() * $scope.pokemon.totalPokemon);
 
-        $scope.pokedex.getPokemonByName(id)
-            .then(function (response) {
-                $scope.numGuesses = 0;
-                $scope.typesGuessed = [];
-                $scope.currentPokemon = response.data;
-            })
-            .catch(function (error) {
-                $scope.getRandomPokemon();
-            });
+        $scope.numGuesses = 0;
+        $scope.typesGuessed = [];
+        $scope.currentPokemon = $scope.pokemonList[id];
     };
+
+    $scope.getRandomPokemon();
 
     $scope.guessType = function (type) {
         if ($scope.typesGuessed.includes(type)) {
