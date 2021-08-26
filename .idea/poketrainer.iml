@@ -9,5 +9,6 @@
     <orderEntry type="library" name="angular-route" level="application" />
     <orderEntry type="library" name="popper.js" level="application" />
     <orderEntry type="library" name="toastr" level="application" />
+    <orderEntry type="library" name="pokeapi-js-wrapper" level="application" />
   </component>
 </module>

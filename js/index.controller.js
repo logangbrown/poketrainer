@@ -17,6 +17,7 @@ angular.module('poketrainer').controller('IndexCtrl', function ($scope, $http, $
         "hideMethod": "fadeOut"
     };
 
+    $scope.pokedex = new Pokedex.Pokedex();
     $scope.pokemon = {};
     $scope.pokemon.totalGuesses = 0;
     $scope.pokemon.totalCorrect = 0;
@@ -42,14 +43,16 @@ angular.module('poketrainer').controller('IndexCtrl', function ($scope, $http, $
         'fairy': {'index': 'fairy', 'name': 'Fairy'}
     }
 
-    $http.get("https://pokeapi.co/api/v2/pokemon")
-        .then(function (response) {
-            $scope.pokemon.totalPokemon = response.data.count;
-            $scope.getRandomPokemon();
-        })
-        .catch(function (error) {
-            toastr["error"](error);
-        });
+    // $http.get("https://pokeapi.co/api/v2/pokemon")
+    //     .then(function (response) {
+    //         $scope.pokemon.totalPokemon = response.data.count;
+    //         $scope.getRandomPokemon();
+    //     })
+    //     .catch(function (error) {
+    //         toastr["error"](error);
+    //     });
+    $scope.pokemon.totalPokemon = 800;
+    $scope.getRandomPokemon();
 
     $scope.numGuesses = 0;
     $scope.typesGuessed = [];
@@ -57,14 +60,13 @@ angular.module('poketrainer').controller('IndexCtrl', function ($scope, $http, $
     $scope.getRandomPokemon = function () {
         let id = 1 + Math.floor(Math.random() * $scope.pokemon.totalPokemon);
 
-        $http.get("https://pokeapi.co/api/v2/pokemon/" + id)
+        $scope.pokedex.getPokemonById(id)
             .then(function (response) {
                 $scope.numGuesses = 0;
                 $scope.typesGuessed = [];
                 $scope.currentPokemon = response.data;
             })
             .catch(function (error) {
-                toastr["error"]("Error loading pokemon: " + id);
                 $scope.getRandomPokemon();
             });
     };
