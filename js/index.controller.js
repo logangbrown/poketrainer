@@ -71,6 +71,7 @@ angular.module('poketrainer').controller('IndexCtrl', function ($scope, $http, $
                 $scope.numGuesses = 0;
                 $scope.typesGuessed = [];
                 $scope.pokemon.currentPokemon = response;
+                $scope.$apply();
             })
     };
 
