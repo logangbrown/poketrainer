@@ -1,13 +1,13 @@
 <div id="home">
     <h2>Pokétrainer</h2>
 
-    <h3>{{pokemon.charmander.name}}</h3>
-    <img src="{{pokemon.charmander.sprites.front_default}}" alt="{{pokemon.charmander.name}} sprite">
+    <h3 class="text-capitalize">{{currentPokemon.name}}</h3>
+    <img src="{{currentPokemon.sprites.front_default}}" alt="{{pokemon.charmander.name}} sprite">
 
     <div class="container" style="width: 390px;">
         <div class="row">
             <div class="col-4 mb-2" ng-repeat="t in pokemon.types">
-                <button class="btn btn-lg type-btn type-{{t.index}}">{{t.name}}</button>
+                <button class="btn btn-lg type-btn type-{{t.index}}" ng-click="guessType(t.index)">{{t.name}}</button>
             </div>
         </div>
     </div>

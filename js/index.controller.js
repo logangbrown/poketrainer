@@ -1,5 +1,24 @@
 angular.module('poketrainer').controller('IndexCtrl', function ($scope, $http, $routeParams, $location) {
+    toastr.options = {
+        "closeButton": false,
+        "debug": false,
+        "newestOnTop": false,
+        "progressBar": false,
+        "positionClass": "toast-top-center",
+        "preventDuplicates": false,
+        "onclick": null,
+        "showDuration": "200",
+        "hideDuration": "500",
+        "timeOut": "2500",
+        "extendedTimeOut": "1000",
+        "showEasing": "swing",
+        "hideEasing": "linear",
+        "showMethod": "fadeIn",
+        "hideMethod": "fadeOut"
+    };
+
     $scope.pokemon = {};
+    $scope.currentPokemon = {};
     $scope.pokemon.types = {
         'normal': {'index': 'normal', 'name': 'Normal'},
         'fire': {'index': 'fire', 'name': 'Fire'},
@@ -21,9 +40,36 @@ angular.module('poketrainer').controller('IndexCtrl', function ($scope, $http, $
         'fairy': {'index': 'fairy', 'name': 'Fairy'}
     }
 
+    $http.get("https://pokeapi.co/api/v2/pokemon")
+        .then(function (response) {
+            $scope.pokemon.count = response.data.count;
+        });
+
     $http.get("https://pokeapi.co/api/v2/pokemon/charmander")
         .then(function (response) {
             $scope.pokemon.charmander = response.data;
         });
 
+    $scope.getRandomPokemon = function () {
+        let id = 1 + Math.floor(Math.random() * max);
+
+        $http.get("https://pokeapi.co/api/v2/pokemon/" + id)
+            .then(function (response) {
+                $scope.currentPokemon = response.data;
+            });
+    };
+
+    $scope.guessType = function (type) {
+        for (let i = 0; i < $scope.currentPokemon.types.count; i++) {
+            if ($scope.currentPokemon.types[i].type.name === type) {
+                toastr["success"]("Correct!");
+                $scope.getRandomPokemon();
+                return;
+            }
+        }
+        toastr["error"]("Wrong!");
+        $scope.getRandomPokemon();
+    };
+
+    $scope.getRandomPokemon();
 });
