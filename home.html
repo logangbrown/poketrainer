@@ -5,7 +5,7 @@
     <img src="{{pokemon.charmander.sprites.front_default}}" alt="{{pokemon.charmander.name}} sprite">
 
     <div class="container">
-        <div class="col" ng-repeat="t in types">
+        <div class="col" ng-repeat="t in pokemon.types">
             <button class="type-{{t}}">{{t.name}}</button>
         </div>
     </div>
