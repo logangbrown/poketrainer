@@ -76,7 +76,7 @@ angular.module('poketrainer').controller('IndexCtrl', function ($scope, $http, $
                     return;
                 }
                 else {
-                    $scope.typesGuessed.push(type);
+                    $scope.typesGuessed.push(' ' + type);
                 }
             }
         }
