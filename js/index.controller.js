@@ -3,6 +3,6 @@ angular.module('poketrainer').controller('IndexCtrl', function ($scope, $http, $
 
     $http.get("https://pokeapi.co/api/v2/pokemon/charmander")
         .then(function (response) {
-            $scope.pokemon.charmander = response;
+            $scope.pokemon.charmander = response.data;
         });
 });
