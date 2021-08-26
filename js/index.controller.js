@@ -18,6 +18,8 @@ angular.module('poketrainer').controller('IndexCtrl', function ($scope, $http, $
     };
 
     $scope.pokemon = {};
+    $scope.pokemon.totalGuesses = 0;
+    $scope.pokemon.totalCorrect = 0;
     $scope.currentPokemon = {};
     $scope.pokemon.types = {
         'normal': {'index': 'normal', 'name': 'Normal'},
@@ -67,20 +69,23 @@ angular.module('poketrainer').controller('IndexCtrl', function ($scope, $http, $
         }
         let types = ''
         for (let i = 0; i < $scope.currentPokemon.types.length; i++) {
-            types += $scope.currentPokemon.types[i].type.name;
+            types += ' ' + $scope.currentPokemon.types[i].type.name;
             if ($scope.currentPokemon.types[i].type.name === type) {
                 $scope.numGuesses++;
                 toastr["success"]("Correct!");
                 if ($scope.numGuesses === $scope.currentPokemon.types.length) {
+                    $scope.pokemon.totalCorrect++;
+                    $scope.pokemon.totalGuesses++;
                     $scope.getRandomPokemon();
-                    return;
                 }
                 else {
-                    $scope.typesGuessed.push(' ' + type);
+                    $scope.typesGuessed.push(type);
                 }
+                return;
             }
         }
         toastr["error"]("Wrong!" + types);
+        $scope.pokemon.totalGuesses++;
         $scope.getRandomPokemon();
     };
 });
