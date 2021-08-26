@@ -42,12 +42,8 @@ angular.module('poketrainer').controller('IndexCtrl', function ($scope, $http, $
 
     $http.get("https://pokeapi.co/api/v2/pokemon")
         .then(function (response) {
-            $scope.pokemon.count = response.data.count;
-        });
-
-    $http.get("https://pokeapi.co/api/v2/pokemon/charmander")
-        .then(function (response) {
-            $scope.pokemon.charmander = response.data;
+            $scope.pokemon.totalPokemon = response.data.count;
+            $scope.getRandomPokemon();
         });
 
     $scope.getRandomPokemon = function () {
@@ -70,6 +66,4 @@ angular.module('poketrainer').controller('IndexCtrl', function ($scope, $http, $
         toastr["error"]("Wrong!");
         $scope.getRandomPokemon();
     };
-
-    $scope.getRandomPokemon();
 });
