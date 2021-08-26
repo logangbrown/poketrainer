@@ -22,7 +22,7 @@ angular.module('poketrainer').controller('IndexCtrl', function ($scope, $http, $
     $scope.pokemon = {};
     $scope.pokemon.totalGuesses = 0;
     $scope.pokemon.totalCorrect = 0;
-    $scope.currentPokemon = {};
+    $scope.pokemon.currentPokemon = {};
     $scope.pokemon.types = {
         'normal': {'index': 'normal', 'name': 'Normal'},
         'fire': {'index': 'fire', 'name': 'Fire'},
@@ -70,7 +70,7 @@ angular.module('poketrainer').controller('IndexCtrl', function ($scope, $http, $
             .then(function (response) {
                 $scope.numGuesses = 0;
                 $scope.typesGuessed = [];
-                $scope.currentPokemon = response;
+                $scope.pokemon.currentPokemon = response;
             })
     };
 
@@ -80,12 +80,12 @@ angular.module('poketrainer').controller('IndexCtrl', function ($scope, $http, $
             return;
         }
         let types = ''
-        for (let i = 0; i < $scope.currentPokemon.types.length; i++) {
-            types += ' ' + $scope.currentPokemon.types[i].type.name;
-            if ($scope.currentPokemon.types[i].type.name === type) {
+        for (let i = 0; i < $scope.pokemon.currentPokemon.types.length; i++) {
+            types += ' ' + $scope.pokemon.currentPokemon.types[i].type.name;
+            if ($scope.pokemon.currentPokemon.types[i].type.name === type) {
                 $scope.numGuesses++;
                 toastr["success"]("Correct!");
-                if ($scope.numGuesses === $scope.currentPokemon.types.length) {
+                if ($scope.numGuesses === $scope.pokemon.currentPokemon.types.length) {
                     $scope.pokemon.totalCorrect++;
                     $scope.pokemon.totalGuesses++;
                     $scope.getRandomPokemon();
