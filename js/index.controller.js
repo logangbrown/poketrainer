@@ -51,7 +51,7 @@ angular.module('poketrainer').controller('IndexCtrl', function ($scope, $http, $
         });
 
     $scope.getRandomPokemon = function () {
-        let id = 1 + Math.floor(Math.random() * max);
+        let id = 1 + Math.floor(Math.random() * $scope.pokemon.count);
 
         $http.get("https://pokeapi.co/api/v2/pokemon/" + id)
             .then(function (response) {
