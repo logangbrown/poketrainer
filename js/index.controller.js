@@ -70,7 +70,7 @@ angular.module('poketrainer').controller('IndexCtrl', function ($scope, $http, $
             .then(function (response) {
                 $scope.numGuesses = 0;
                 $scope.typesGuessed = [];
-                $scope.currentPokemon = response.results;
+                $scope.currentPokemon = response;
             })
     };
 
