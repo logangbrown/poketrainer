@@ -10,7 +10,7 @@
     <div class="container" style="width: 390px;">
         <div class="row">
             <div class="col-4 mb-2" ng-repeat="t in pokemon.types">
-                <button class="btn btn-lg type-btn type-{{t.index}}" ng-click="guessType(t.index)">{{t.name}}</button>
+                <button class="btn btn-lg type-btn type-{{t.index}}" ng-click="guessType(t.index)" ng-disabled="typesGuessed.contains(t.index)">{{t.name}}</button>
             </div>
         </div>
         <div><strong>Score: {{pokemon.totalCorrect}}/{{pokemon.totalGuesses}}</strong></div>
