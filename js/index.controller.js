@@ -64,7 +64,7 @@ angular.module('poketrainer').controller('IndexCtrl', function ($scope, $http, $
     $scope.typesGuessed = [];
 
     $scope.getRandomPokemon = function () {
-        let id = Math.floor(Math.random() * $scope.pokemon.totalPokemon);
+        let id = Math.floor(Math.random() * $scope.totalPokemon);
 
         $scope.pokedex.getPokemonByName($scope.pokemonList[id].name)
             .then(function (response) {
