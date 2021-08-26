@@ -64,7 +64,8 @@ angular.module('poketrainer').controller('IndexCtrl', function ($scope, $http, $
                 $scope.currentPokemon = response.data;
             })
             .catch(function (error) {
-                toastr["error"](error);
+                toastr["error"]("Error loading pokemon: " + id);
+                $scope.getRandomPokemon();
             });
     };
 
