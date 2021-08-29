@@ -16,7 +16,7 @@ angular.module('poketrainer').controller('IndexCtrl', function ($scope, $http, $
         "showMethod": "fadeIn",
         "hideMethod": "fadeOut"
     };
-    
+
     $scope.settings = {};
     $scope.settings.preferSprite = false;
 
@@ -118,7 +118,7 @@ angular.module('poketrainer').controller('IndexCtrl', function ($scope, $http, $
 
     $scope.getForm = function () {
         let name = $scope.pokemon.currentPokemon.forms[0].name
-        let i = name.indexOf('-');
+
         let hyphenNames = [
             'ho-oh',
             'porygon-z',
@@ -126,6 +126,9 @@ angular.module('poketrainer').controller('IndexCtrl', function ($scope, $http, $
             'hakamo-o',
             'kommo-o'
         ]
+        if (hyphenNames.includes(name)) name = name.slice(name.indexOf('-') + 1);
+
+        let i = name.indexOf('-');
         if (i > -1) {
             if (hyphenNames.includes(name)) return '';
             return ' (' + $scope.pokemon.currentPokemon.forms[0].name.substring(i+1).replace('-',' ') + ')';
