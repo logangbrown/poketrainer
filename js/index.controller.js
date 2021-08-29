@@ -104,7 +104,7 @@ angular.module('poketrainer').controller('IndexCtrl', function ($scope, $http, $
     $scope.getForm = function () {
         let i = $scope.pokemon.currentPokemon.forms[0].name.indexOf('-');
         if (i > -1) {
-            return ' (' + $scope.pokemon.currentPokemon.forms[0].name.substring(i+1) + ')';
+            return ' (' + $scope.pokemon.currentPokemon.forms[0].name.substring(i+1).replace('-',' ') + ')';
         }
         else {
             return '';
