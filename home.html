@@ -8,7 +8,7 @@
     </div>
 
     <div class="row m-auto" style="max-width: 348px;">
-            <button class="btn btn-lg col-4 mb-2 type-btn type-{{t.index}}" ng-repeat="t in pokemon.types"
+            <button class="btn btn-lg col-4 m-1 type-btn type-{{t.index}}" ng-repeat="t in pokemon.types"
                     ng-click="guessType(t.index)" ng-disabled="typesGuessed.includes(t.index)">{{t.name}}</button>
     </div>
 </div>
