@@ -5,6 +5,9 @@
     <div class="text-center">
         <img src="{{getSprite()}}" alt="{{pokemon.currentPokemon.species.name}} sprite"
          class="img" style="max-width: 348px; max-height: 250px;">
+        <div id="spinner" class="spinner-border text-primary" role="status">
+            <span class="sr-only">Loading...</span>
+        </div>
     </div>
 
     <div class="row m-auto" style="max-width: 348px;">
@@ -13,4 +16,5 @@
                     ng-click="guessType(t.index)" ng-disabled="typesGuessed.includes(t.index)">{{t.name}}</button>
         </div>
     </div>
+    <div class="text-center"><strong>Score: {{pokemon.totalCorrect}}/{{pokemon.totalGuesses}}</strong></div>
 </div>
