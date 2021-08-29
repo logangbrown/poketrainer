@@ -16,6 +16,9 @@ angular.module('poketrainer').controller('IndexCtrl', function ($scope, $http, $
         "showMethod": "fadeIn",
         "hideMethod": "fadeOut"
     };
+    
+    $scope.settings = {};
+    $scope.settings.preferSprite = false;
 
     $scope.pokedex = new Pokedex.Pokedex();
     $scope.pokemonList = {};
@@ -98,16 +101,33 @@ angular.module('poketrainer').controller('IndexCtrl', function ($scope, $http, $
     };
 
     $scope.getSprite = function () {
-        if ($scope.pokemon.currentPokemon.sprites.other['official-artwork'].front_default) {
-            return $scope.pokemon.currentPokemon.sprites.other['official-artwork'].front_default;
+        if ($scope.settings.preferSprite) {
+            if ($scope.pokemon.currentPokemon.sprites.front_default) {
+                return $scope.pokemon.currentPokemon.sprites.front_default;
+            } else {
+                return $scope.pokemon.currentPokemon.sprites.other['official-artwork'].front_default;
+            }
         } else {
-            return $scope.pokemon.currentPokemon.sprites.front_default;
+            if ($scope.pokemon.currentPokemon.sprites.other['official-artwork'].front_default) {
+                return $scope.pokemon.currentPokemon.sprites.other['official-artwork'].front_default;
+            } else {
+                return $scope.pokemon.currentPokemon.sprites.front_default;
+            }
         }
     };
 
     $scope.getForm = function () {
-        let i = $scope.pokemon.currentPokemon.forms[0].name.indexOf('-');
+        let name = $scope.pokemon.currentPokemon.forms[0].name
+        let i = name.indexOf('-');
+        let hyphenNames = [
+            'ho-oh',
+            'porygon-z',
+            'jangmo-o',
+            'hakamo-o',
+            'kommo-o'
+        ]
         if (i > -1) {
+            if (hyphenNames.includes(name)) return '';
             return ' (' + $scope.pokemon.currentPokemon.forms[0].name.substring(i+1).replace('-',' ') + ')';
         }
         else {
