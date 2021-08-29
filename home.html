@@ -7,13 +7,9 @@
          class="img" style="max-width: 348px; max-height: 250px;">
     </div>
 
-
-    <div class="container" >
-        <div class="row m-auto" style="max-width: 348px;">
-            <div class="col-4 mb-2" ng-repeat="t in pokemon.types">
-                <button class="btn btn-lg type-btn type-{{t.index}}" ng-click="guessType(t.index)" ng-disabled="typesGuessed.includes(t.index)">{{t.name}}</button>
-            </div>
+    <div class="row m-auto" style="max-width: 348px;">
+        <div class="col-4 mb-2" ng-repeat="t in pokemon.types">
+            <button class="btn btn-lg type-btn type-{{t.index}}" ng-click="guessType(t.index)" ng-disabled="typesGuessed.includes(t.index)">{{t.name}}</button>
         </div>
-        <div class="text-center"><strong>Score: {{pokemon.totalCorrect}}/{{pokemon.totalGuesses}}</strong></div>
     </div>
 </div>
