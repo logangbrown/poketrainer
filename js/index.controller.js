@@ -73,6 +73,11 @@ angular.module('poketrainer').controller('IndexCtrl', function ($scope, $http, $
                     $('#spinner').addClass('d-none');
                     $(".type-btn").prop('disabled', false);
                 })
+                .catch(function (error) {
+                    toastr["error"]("Error loading pokémon.");
+                    $('#spinner').addClass('d-none');
+                    $(".type-btn").prop('disabled', false);
+                })
         } else {
             $scope.pokedex.getPokemonByName($scope.pokemonList[id].name)
                 .then(function (response) {
@@ -80,6 +85,11 @@ angular.module('poketrainer').controller('IndexCtrl', function ($scope, $http, $
                     $scope.typesGuessed = [];
                     $scope.pokemon.currentPokemon = response;
                     $scope.$apply();
+                    $('#spinner').addClass('d-none');
+                    $(".type-btn").prop('disabled', false);
+                })
+                .catch(function (error) {
+                    toastr["error"]("Error loading pokémon.");
                     $('#spinner').addClass('d-none');
                     $(".type-btn").prop('disabled', false);
                 })
