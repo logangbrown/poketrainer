@@ -21,7 +21,7 @@ angular.module('poketrainer').controller('IndexCtrl', function ($scope, $http, $
     $scope.settings.preferSprite = false;
     $scope.settings.loadPokemonName = '';
 
-    $scope.pokedex = new Pokedex.Pokedex();
+    $scope.pokedex = new Pokedex.Pokedex({ cacheImages: true });
     $scope.pokemonList = {};
     $scope.pokemon = {};
     $scope.pokemon.totalGuesses = 0;
@@ -165,11 +165,9 @@ angular.module('poketrainer').controller('IndexCtrl', function ($scope, $http, $
             'kommo-o',
             'mr-mime'
         ]
-
         hyphenNames.forEach(function (hyphenName) {
             if (name.startsWith(hyphenName)) name = name.slice(name.indexOf('-') + 1);
-        })
-        //if (hyphenNames.includes(name)) name = name.slice(name.indexOf('-') + 1);
+        });
 
         let i = name.indexOf('-');
         if (i > -1) {
