@@ -129,6 +129,15 @@ angular.module('poketrainer').controller('IndexCtrl', function ($scope, $http, $
         }
     };
 
+    $scope.getName = function () {
+        let name = $scope.pokemon.currentPokemon.species.name;
+        if (name.startsWith('mr-mime')) {
+            return 'mr. mime';
+        }
+
+        return name;
+    }
+
     $scope.getForm = function () {
         let name = $scope.pokemon.currentPokemon.forms[0].name
 
@@ -137,9 +146,14 @@ angular.module('poketrainer').controller('IndexCtrl', function ($scope, $http, $
             'porygon-z',
             'jangmo-o',
             'hakamo-o',
-            'kommo-o'
+            'kommo-o',
+            'mr-mime'
         ]
-        if (hyphenNames.includes(name)) name = name.slice(name.indexOf('-') + 1);
+
+        hyphenNames.forEach(function (hyphenName) {
+            if (name.startsWith(hyphenName)) name = name.slice(name.indexOf('-') + 1);
+        })
+        //if (hyphenNames.includes(name)) name = name.slice(name.indexOf('-') + 1);
 
         let i = name.indexOf('-');
         if (i > -1) {
