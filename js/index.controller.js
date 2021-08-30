@@ -19,6 +19,7 @@ angular.module('poketrainer').controller('IndexCtrl', function ($scope, $http, $
 
     $scope.settings = {};
     $scope.settings.preferSprite = false;
+    $scope.settings.loadPokemonName = '';
 
     $scope.pokedex = new Pokedex.Pokedex();
     $scope.pokemonList = {};
@@ -51,26 +52,38 @@ angular.module('poketrainer').controller('IndexCtrl', function ($scope, $http, $
         .then(function (response) {
             $scope.pokemonList = response.results;
             $scope.totalPokemon = $scope.pokemonList.length;
-            $scope.getRandomPokemon();
+            $scope.loadPokemon();
         });
 
     $scope.numGuesses = 0;
     $scope.typesGuessed = [];
 
-    $scope.getRandomPokemon = function () {
+    $scope.loadPokemon = function (pokemon = '') {
         $('#spinner').removeClass('d-none');
         $(".type-btn").prop('disabled', true);
         let id = Math.floor(Math.random() * $scope.totalPokemon);
 
-        $scope.pokedex.getPokemonByName($scope.pokemonList[id].name)
-            .then(function (response) {
-                $scope.numGuesses = 0;
-                $scope.typesGuessed = [];
-                $scope.pokemon.currentPokemon = response;
-                $scope.$apply();
-                $('#spinner').addClass('d-none');
-                $(".type-btn").prop('disabled', false);
-            })
+        if (pokemon) {
+            $scope.pokedex.getPokemonByName(pokemon)
+                .then(function (response) {
+                    $scope.numGuesses = 0;
+                    $scope.typesGuessed = [];
+                    $scope.pokemon.currentPokemon = response;
+                    $scope.$apply();
+                    $('#spinner').addClass('d-none');
+                    $(".type-btn").prop('disabled', false);
+                })
+        } else {
+            $scope.pokedex.getPokemonByName($scope.pokemonList[id].name)
+                .then(function (response) {
+                    $scope.numGuesses = 0;
+                    $scope.typesGuessed = [];
+                    $scope.pokemon.currentPokemon = response;
+                    $scope.$apply();
+                    $('#spinner').addClass('d-none');
+                    $(".type-btn").prop('disabled', false);
+                })
+        }
     };
 
     $scope.guessType = function (type) {
@@ -87,7 +100,7 @@ angular.module('poketrainer').controller('IndexCtrl', function ($scope, $http, $
                 if ($scope.numGuesses === $scope.pokemon.currentPokemon.types.length) {
                     $scope.pokemon.totalCorrect++;
                     $scope.pokemon.totalGuesses++;
-                    $scope.getRandomPokemon();
+                    $scope.loadPokemon();
                 }
                 else {
                     $scope.typesGuessed.push(type);
@@ -97,7 +110,7 @@ angular.module('poketrainer').controller('IndexCtrl', function ($scope, $http, $
         }
         toastr["error"]("Wrong!" + types);
         $scope.pokemon.totalGuesses++;
-        $scope.getRandomPokemon();
+        $scope.loadPokemon();
     };
 
     $scope.getSprite = function () {

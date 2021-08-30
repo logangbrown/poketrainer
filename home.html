@@ -15,6 +15,12 @@
                 <label for="preferSpriteCheckbox" class="form-check-label">Prefer in-game sprite artwork</label>
             </div>
         </div>
+        <div class="input-group mb-3">
+            <div class="input-group-prepend">
+                <button class="btn btn-outline-secondary" type="button" ng-click="loadPokemon(settings.loadPokemonName)">Load Pokémon</button>
+            </div>
+            <input type="text" class="form-control" placeholder="" aria-label="" aria-describedby="basic-addon1" ng-model="settings.loadPokemonName">
+        </div>
     </div>
 
     <h3 class="text-capitalize text-center">{{pokemon.currentPokemon.species.name}}{{getForm()}}</h3>
