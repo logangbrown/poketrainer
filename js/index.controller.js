@@ -124,6 +124,8 @@ angular.module('poketrainer').controller('IndexCtrl', function ($scope, $http, $
     };
 
     $scope.getSprite = function () {
+        if (!$scope.pokemon.currentPokemon) return '';
+        
         if ($scope.settings.preferSprite) {
             if ($scope.pokemon.currentPokemon.sprites.front_default) {
                 return $scope.pokemon.currentPokemon.sprites.front_default;
@@ -140,6 +142,8 @@ angular.module('poketrainer').controller('IndexCtrl', function ($scope, $http, $
     };
 
     $scope.getName = function () {
+        if (!$scope.pokemon.currentPokemon) return '';
+
         let name = $scope.pokemon.currentPokemon.species.name;
         if (name.startsWith('mr-mime')) {
             return 'mr. mime';
@@ -149,6 +153,8 @@ angular.module('poketrainer').controller('IndexCtrl', function ($scope, $http, $
     }
 
     $scope.getForm = function () {
+        if (!$scope.pokemon.currentPokemon) return '';
+
         let name = $scope.pokemon.currentPokemon.forms[0].name
 
         let hyphenNames = [
